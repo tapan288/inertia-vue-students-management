@@ -1,5 +1,12 @@
 <script setup>
 import MagnifyingGlass from "@/Components/Icons/MagnifyingGlass.vue";
+
+defineProps({
+    students: {
+        type: Object,
+        required: true,
+    },
+});
 </script>
 
 <template>
@@ -101,36 +108,39 @@ import MagnifyingGlass from "@/Components/Icons/MagnifyingGlass.vue";
                                     <tbody
                                         class="divide-y divide-gray-200 bg-white"
                                     >
-                                        <tr>
+                                        <tr
+                                            v-for="student in students.data"
+                                            :key="student.id"
+                                        >
                                             <td
                                                 class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
                                             >
-                                                1
+                                                {{ student.id }}
                                             </td>
                                             <td
                                                 class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
                                             >
-                                                Name
+                                                {{ student.name }}
                                             </td>
                                             <td
                                                 class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                                             >
-                                                email
+                                                {{ student.email }}
                                             </td>
                                             <td
                                                 class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                                             >
-                                                Class 1
+                                                {{ student.class.name }}
                                             </td>
                                             <td
                                                 class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                                             >
-                                                Section A
+                                                {{ student.section.name }}
                                             </td>
                                             <td
                                                 class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"
                                             >
-                                                2 days ago
+                                                {{ student.created_at }}
                                             </td>
 
                                             <td
