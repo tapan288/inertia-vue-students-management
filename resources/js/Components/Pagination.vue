@@ -1,5 +1,5 @@
 <script setup>
-import { router, usePage } from "@inertiajs/vue3";
+import { router } from "@inertiajs/vue3";
 
 defineProps({
     data: {
