@@ -2,11 +2,22 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link, useForm, usePage } from "@inertiajs/vue3";
 import InputError from "@/Components/InputError.vue";
+import vSelect from "vue-select";
 
 const role = usePage().props.role;
 
+defineProps({
+    permissions: {
+        type: Object,
+        required: true,
+    },
+});
+
 const form = useForm({
     title: role.data.title,
+    selectedPermissions: role.data.permissions.map(
+        (permission) => permission.id
+    ),
 });
 
 const submit = () => {
@@ -58,6 +69,30 @@ const submit = () => {
                                         <InputError
                                             class="mt-2"
                                             :message="form.errors.title"
+                                        />
+                                    </div>
+
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label
+                                            for="title"
+                                            class="block text-sm font-medium text-gray-700"
+                                            >Permissions</label
+                                        >
+                                        <v-select
+                                            multiple
+                                            :options="permissions.data"
+                                            v-model="form.selectedPermissions"
+                                            :reduce="
+                                                (permission) => permission.id
+                                            "
+                                            label="title"
+                                            class="block w-full rounded-md shadow-sm py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                        ></v-select>
+                                        <InputError
+                                            class="mt-2"
+                                            :message="
+                                                form.errors.selectedPermissions
+                                            "
                                         />
                                     </div>
                                 </div>
