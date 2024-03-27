@@ -2,9 +2,18 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import { Head, Link, useForm } from "@inertiajs/vue3";
 import InputError from "@/Components/InputError.vue";
+import vSelect from "vue-select";
+
+defineProps({
+    permissions: {
+        type: Object,
+        required: true,
+    },
+});
 
 const form = useForm({
     title: "",
+    selectedPermissions: [],
 });
 
 const submit = () => {
@@ -56,6 +65,30 @@ const submit = () => {
                                         <InputError
                                             class="mt-2"
                                             :message="form.errors.title"
+                                        />
+                                    </div>
+
+                                    <div class="col-span-6 sm:col-span-3">
+                                        <label
+                                            for="permissions"
+                                            class="block text-sm font-medium text-gray-700"
+                                            >Permissions</label
+                                        >
+                                        <v-select
+                                            v-model="form.selectedPermissions"
+                                            multiple
+                                            :reduce="
+                                                (permission) => permission.id
+                                            "
+                                            :options="permissions.data"
+                                            label="title"
+                                            class="block w-full rounded-md shadow-sm py-2 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                        ></v-select>
+                                        <InputError
+                                            class="mt-2"
+                                            :message="
+                                                form.errors.selectedPermissions
+                                            "
                                         />
                                     </div>
                                 </div>

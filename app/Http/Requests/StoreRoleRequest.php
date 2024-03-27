@@ -23,6 +23,15 @@ class StoreRoleRequest extends FormRequest
     {
         return [
             'title' => ['required', 'string', 'max:255'],
+            'selectedPermissions' => ['array', 'required'],
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'title' => 'Role Title',
+            'selectedPermissions' => 'Permissions',
         ];
     }
 }
