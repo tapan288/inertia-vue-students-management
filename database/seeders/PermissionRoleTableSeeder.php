@@ -16,7 +16,10 @@ class PermissionRoleTableSeeder extends Seeder
     {
         $admin_permissions = Permission::all();
 
-        $user_permissions = Permission::where('title', 'student_access')->get();
+        $user_permissions = Permission::whereIn('title', [
+            'student_access',
+            'student_create'
+        ])->get();
 
         Role::find(1)->permissions()->attach($admin_permissions);
 
