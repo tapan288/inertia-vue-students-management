@@ -5,7 +5,9 @@ import Dropdown from "@/Components/Dropdown.vue";
 import DropdownLink from "@/Components/DropdownLink.vue";
 import NavLink from "@/Components/NavLink.vue";
 import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
-import { Link } from "@inertiajs/vue3";
+import { Link, usePage } from "@inertiajs/vue3";
+
+const page = usePage();
 
 const showingNavigationDropdown = ref(false);
 </script>
@@ -38,6 +40,7 @@ const showingNavigationDropdown = ref(false);
                                     Dashboard
                                 </NavLink>
                                 <NavLink
+                                    v-if="page.props.can.student_access"
                                     :href="route('students.index')"
                                     :active="
                                         route().current('students.index') ||
