@@ -43,6 +43,15 @@ watch(
     }
 );
 
+watch(
+    () => search.value,
+    (value) => {
+        if (value) {
+            pageNumber.value = 1;
+        }
+    }
+);
+
 const deletForm = useForm({});
 
 const deleteStudent = (studentId) => {
