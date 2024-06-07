@@ -10,11 +10,16 @@ defineProps({
         type: Object,
         required: true,
     },
+    classes: {
+        type: Object,
+        required: true,
+    },
 });
 
 const page = usePage();
 
 let search = ref(usePage().props.search),
+    class_id = ref(usePage().props.class_id ?? ""),
     pageNumber = ref(1);
 
 let studentsUrl = computed(() => {
@@ -23,6 +28,10 @@ let studentsUrl = computed(() => {
 
     if (search.value) {
         url.searchParams.append("search", search.value);
+    }
+
+    if (class_id.value) {
+        url.searchParams.append("class_id", class_id.value);
     }
 
     return url;
@@ -94,7 +103,7 @@ const deleteStudent = (studentId) => {
                         </div>
                     </div>
 
-                    <div class="flex flex-col justify-between sm:flex-row mt-6">
+                    <div class="flex flex-col justify-start sm:flex-row mt-6">
                         <div class="relative text-sm text-gray-800 col-span-3">
                             <div
                                 class="absolute pl-2 left-0 top-0 bottom-0 flex items-center pointer-events-none text-gray-500"
@@ -111,6 +120,19 @@ const deleteStudent = (studentId) => {
                                 class="block rounded-lg border-0 py-2 pl-10 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             />
                         </div>
+                        <select
+                            v-model="class_id"
+                            class="block rounded-lg border-0 py-2 ml-5 text-gray-900 ring-1 ring-inset ring-gray-200 placeholder:text-gray-400 sm:text-sm sm:leading-6"
+                        >
+                            <option value="">Filter By Class</option>
+                            <option
+                                :value="item.id"
+                                :key="item.id"
+                                v-for="item in classes.data"
+                            >
+                                {{ item.name }}
+                            </option>
+                        </select>
                     </div>
 
                     <div class="mt-8 flex flex-col">
